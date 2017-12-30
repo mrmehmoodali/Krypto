@@ -1,6 +1,7 @@
 package com.example.ali.webapi;
 
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,24 +14,49 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String API_URL = "https://koinex.in/api/ticker";
 
-    ProgressBar mProgressBar;
+    //ProgressBar mProgressBar;
     TextView mResponseView;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mProgressBar = findViewById(R.id.progressBar);
+        //mProgressBar = findViewById(R.id.progressBar);
         mResponseView = findViewById(R.id.responseView);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+
+        //new RetrieveFeedTask().execute();
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+
+                new RetrieveFeedTask().execute();
+            }
+        }
+        );
+
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
 
         new RetrieveFeedTask().execute();
-
-
     }
 
     class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
@@ -39,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPreExecute() {
 
-            mProgressBar.setVisibility(View.VISIBLE);
+            //mProgressBar.setVisibility(View.VISIBLE);
             mResponseView.setText("");
         }
 
@@ -74,9 +100,10 @@ public class MainActivity extends AppCompatActivity {
             if(response == null) {
                 response = "THERE WAS AN ERROR";
             }
-            mProgressBar.setVisibility(View.GONE);
+            //mProgressBar.setVisibility(View.GONE);
             Log.i("INFO", response);
             mResponseView.setText(response);
+            swipeRefreshLayout.setRefreshing(false);
             // TODO: check this.exception
             // TODO: do something with the feed
 
