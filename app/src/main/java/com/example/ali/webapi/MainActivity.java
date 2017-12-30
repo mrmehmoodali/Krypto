@@ -9,6 +9,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.robinhood.ticker.TickerView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -22,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     //ProgressBar mProgressBar;
     TextView mResponseView;
     SwipeRefreshLayout swipeRefreshLayout;
+    //TickerView mTickerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,23 +110,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
             //mProgressBar.setVisibility(View.GONE);
             Log.i("INFO", response);
-            mResponseView.setText(response);
+            //mResponseView.setText(response);
             swipeRefreshLayout.setRefreshing(false);
             // TODO: check this.exception
             // TODO: do something with the feed
 
-//            try {
-//                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-//                String requestID = object.getString("requestId");
-//                int likelihood = object.getInt("likelihood");
-//                JSONArray photos = object.getJSONArray("photos");
-//                .
-//                .
-//                .
-//                .
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
+                JSONObject rate = object.getJSONObject("prices");
+                String xTicker = rate.getString("XRP");
+                //mTickerView.setText(xTicker);
+                mResponseView.setText(xTicker);
+                //int likelihood = object.getInt("likelihood");
+                //JSONArray photos = object.getJSONArray("photos");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

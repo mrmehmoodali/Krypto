@@ -35,6 +35,10 @@ android:orientation="vertical">
                 android:id="@+id/responseView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <!--<com.robinhood.ticker.TickerView
+                android:id="@+id/tickerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" /> -->
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
