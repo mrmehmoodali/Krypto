@@ -4,42 +4,21 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
-
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:indeterminate="true"
-            android:visibility="gone" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
-
             <TextView
                 android:id="@+id/responseView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="50sp"/>
             <!--<com.robinhood.ticker.TickerView
                 android:id="@+id/tickerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" /> -->
-        </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
-</RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

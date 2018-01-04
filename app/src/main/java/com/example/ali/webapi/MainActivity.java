@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
+        /*
+          Showing Swipe Refresh animation on activity create
+          As animation won't start on onCreate, post runnable is used
          */
         swipeRefreshLayout.post(new Runnable() {
             @Override
