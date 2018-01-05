@@ -1,133 +1,88 @@
 package com.example.ali.webapi;
 
-import android.os.AsyncTask;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
-import com.robinhood.ticker.TickerView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.example.ali.webapi.SlidingTab.SlidingTabLayout;
 
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity {
 
-    private static final String API_URL = "https://koinex.in/api/ticker";
+    // Declaring Your View and Variables
 
-    //ProgressBar mProgressBar;
-    TextView mResponseView;
-    SwipeRefreshLayout swipeRefreshLayout;
-    //TickerView mTickerView;
+    //Toolbar toolbar;
+    ViewPager pager;
+    ViewPagerAdapter adapter;
+    SlidingTabLayout tabs;
+    CharSequence Titles[]={"Ticker","News"};
+    int Numboftabs =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mProgressBar = findViewById(R.id.progressBar);
-        mResponseView = findViewById(R.id.responseView);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
-        //new RetrieveFeedTask().execute();
+        // Creating The Toolbar and setting it as the Toolbar for the activity
 
-        swipeRefreshLayout.setOnRefreshListener(this);
+        //toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        //setSupportActionBar(toolbar);
 
-        /*
-          Showing Swipe Refresh animation on activity create
-          As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
+
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+
+        // Assigning ViewPager View and setting the adapter
+        pager = findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+
+        // Assiging the Sliding Tab Layout View
+        tabs = findViewById(R.id.tabs);
+        //tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-
-                new RetrieveFeedTask().execute();
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
             }
-        }
+
+                                       @Override
+                                       public int getDividerColor(int position) {
+                                           return 0;
+                                       }
+                                   }
         );
 
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
+
+
+
+    }
+
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
-    public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        new RetrieveFeedTask().execute();
-    }
-
-    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
-
-        //private Exception exception;
-
-        protected void onPreExecute() {
-
-            //mProgressBar.setVisibility(View.VISIBLE);
-            mResponseView.setText("");
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
 
-        protected String doInBackground(Void... urls) {
-            //String email = emailText.getText().toString();
-            // Do some validation here
-
-            try {
-                URL url = new URL(API_URL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                }
-                finally{
-                    urlConnection.disconnect();
-                }
-            }
-            catch(Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                return null;
-            }
-        }
-
-        protected void onPostExecute(String response) {
-            if(response == null) {
-                response = "THERE WAS AN ERROR";
-            }
-            //mProgressBar.setVisibility(View.GONE);
-            Log.i("INFO", response);
-            //mResponseView.setText(response);
-            swipeRefreshLayout.setRefreshing(false);
-            // TODO: check this.exception
-            // TODO: do something with the feed
-
-            try {
-                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-                JSONObject rate = object.getJSONObject("prices");
-                String xTicker = rate.getString("XRP");
-                //mTickerView.setText(xTicker);
-                mResponseView.setText(xTicker);
-                //int likelihood = object.getInt("likelihood");
-                //JSONArray photos = object.getJSONArray("photos");
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+        return super.onOptionsItemSelected(item);
+    }*/
 }
 
