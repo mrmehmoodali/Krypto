@@ -8,16 +8,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * Created by Ali on 1/4/2018.
@@ -26,9 +31,10 @@ import java.net.URL;
 public class MainActivityTickerTab extends Fragment {
 
     private static final String API_URL = "https://koinex.in/api/ticker";
-
+    ArrayList<HashMap<String, String>> cryptoList;
     //ProgressBar mProgressBar;
-    TextView mResponseView;
+    //TextView mResponseView;
+    ListView mListView;
     //SwipeRefreshLayout swipeRefreshLayout;
     //TickerView mTickerView;
     /*@Override
@@ -63,7 +69,9 @@ public class MainActivityTickerTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.activity_ticker_tab,container,false);
-        mResponseView = v.findViewById(R.id.responseView);
+        //mResponseView = v.findViewById(R.id.responseView);
+        mListView = v.findViewById(R.id.list);
+        cryptoList = new ArrayList<>();
         //mProgressBar = findViewById(R.id.progressBar);
         //TextView mResponseView = v.findViewById(R.id.responseView);
         //swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
@@ -84,7 +92,8 @@ public class MainActivityTickerTab extends Fragment {
         protected void onPreExecute() {
 
             //mProgressBar.setVisibility(View.VISIBLE);
-            mResponseView.setText(" ");
+            //mResponseView.setText(" ");
+
         }
 
         protected String doInBackground(Void... urls) {
@@ -126,13 +135,55 @@ public class MainActivityTickerTab extends Fragment {
             // TODO: do something with the feed
 
             try {
-                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
+                /*JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
                 JSONObject rate = object.getJSONObject("prices");
                 String xTicker = rate.getString("XRP");
                 //mTickerView.setText(xTicker);
                 mResponseView.setText(xTicker);
                 //int likelihood = object.getInt("likelihood");
-                //JSONArray photos = object.getJSONArray("photos");
+                //JSONArray photos = object.getJSONArray("photos");*/
+
+                JSONObject jsonObj = new JSONObject(response);
+                JSONObject rate = jsonObj.getJSONObject("prices");
+                JSONObject stats = jsonObj.getJSONObject("stats");
+                for(Iterator<String> iter1 = rate.keys(); iter1.hasNext();) {
+                    HashMap<String, String> temp = new HashMap<>();
+                    String key1 = iter1.next();
+                    Object price = rate.get(key1);
+                    temp.put("id", key1);
+                    temp.put("price", String.valueOf(price));
+                    for(Iterator<String> iter2 = stats.keys(); iter2.hasNext();) {
+                        String key2 = iter2.next();
+
+                        if (Objects.equals(key1, key2)) {
+                            //Log.i("KEY1+KEY2", key1+"+"+key2);
+                            JSONObject coin = stats.getJSONObject(key2);
+                            String highestBid = coin.getString("highest_bid");
+                            String lastTradedPrice = coin.getString("last_traded_price");
+                            String lowestAsk = coin.getString("lowest_ask");
+                            String max24hrs = coin.getString("max_24hrs");
+                            String min24hrs = coin.getString("min_24hrs");
+                            String vol24hrs = coin.getString("vol_24hrs");
+                            temp.put("hbid", highestBid);
+                            temp.put("ltprice", lastTradedPrice);
+                            temp.put("lask", lowestAsk);
+                            temp.put("max24", max24hrs);
+                            temp.put("min24", min24hrs);
+                            temp.put("vol24", vol24hrs);
+                        }
+                    }
+                    cryptoList.add(temp);
+
+                }
+
+                //Log.i("LIST", String.valueOf(Arrays.asList(cryptoList)));
+
+                ListAdapter adapter = new SimpleAdapter(
+                        getActivity(), cryptoList,
+                        R.layout.ticker_list_items, new String[]{"id","price","max24","min24"},
+                        new int[]{R.id.cryptoId, R.id.price, R.id.max24, R.id.min24});
+
+                mListView.setAdapter(adapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
