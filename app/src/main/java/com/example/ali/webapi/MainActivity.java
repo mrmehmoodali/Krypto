@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Ticker","News"};
+    CharSequence Titles[]={"Ticker","Website"};
     int Numboftabs =2;
 
     @Override

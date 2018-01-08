@@ -32,6 +32,17 @@ public class MainActivityTickerTab extends Fragment {
 
     private static final String API_URL = "https://koinex.in/api/ticker";
     ArrayList<HashMap<String, String>> cryptoList;
+
+    int[] icons = new int[]{
+            R.drawable.ic_btc,
+            R.drawable.ic_eth,
+            R.drawable.ic_xrp,
+            R.drawable.ic_bch,
+            R.drawable.ic_ltc,
+            R.drawable.ic_miota,
+            R.drawable.ic_omg,
+            R.drawable.ic_gnt,
+    };
     //ProgressBar mProgressBar;
     //TextView mResponseView;
     ListView mListView;
@@ -128,7 +139,7 @@ public class MainActivityTickerTab extends Fragment {
                 response = "THERE WAS AN ERROR";
             }
             //mProgressBar.setVisibility(View.GONE);
-            Log.i("INFO", response);
+            //Log.i("INFO", response);
             //mResponseView.setText(response);
             //swipeRefreshLayout.setRefreshing(false);
             // TODO: check this.exception
@@ -146,12 +157,16 @@ public class MainActivityTickerTab extends Fragment {
                 JSONObject jsonObj = new JSONObject(response);
                 JSONObject rate = jsonObj.getJSONObject("prices");
                 JSONObject stats = jsonObj.getJSONObject("stats");
+                Integer i = 0;
                 for(Iterator<String> iter1 = rate.keys(); iter1.hasNext();) {
                     HashMap<String, String> temp = new HashMap<>();
                     String key1 = iter1.next();
                     Object price = rate.get(key1);
                     temp.put("id", key1);
                     temp.put("price", String.valueOf(price));
+                    temp.put("icon", Integer.toString(icons[i]) );
+                    i++;
+                    //Log.i("iter", String.valueOf(i));
                     for(Iterator<String> iter2 = stats.keys(); iter2.hasNext();) {
                         String key2 = iter2.next();
 
@@ -180,8 +195,8 @@ public class MainActivityTickerTab extends Fragment {
 
                 ListAdapter adapter = new SimpleAdapter(
                         getActivity(), cryptoList,
-                        R.layout.ticker_list_items, new String[]{"id","price","max24","min24"},
-                        new int[]{R.id.cryptoId, R.id.price, R.id.max24, R.id.min24});
+                        R.layout.ticker_list_items, new String[]{"id","price","icon","max24","min24"},
+                        new int[]{R.id.cryptoId, R.id.price, R.id.imageView, R.id.max24, R.id.min24});
 
                 mListView.setAdapter(adapter);
 
