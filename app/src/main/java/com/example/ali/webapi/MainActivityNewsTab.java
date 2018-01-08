@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * Created by Ali on 1/4/2018.
@@ -20,6 +21,12 @@ public class MainActivityNewsTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.activity_news_tab,container,false);
         WebView webview = v.findViewById(R.id.webview);
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+        });
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl("https://koinex.in");
         return v;
