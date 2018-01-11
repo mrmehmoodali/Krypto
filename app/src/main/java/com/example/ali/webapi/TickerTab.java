@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,8 +50,8 @@ public class TickerTab extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    //SwipeRefreshLayout swipeRefreshLayout;
     //TickerView mTickerView;
     /*@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,8 +94,23 @@ public class TickerTab extends Fragment {
 
 
         //TextView mResponseView = v.findViewById(R.id.responseView);
-        //swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = v.findViewById(R.id.swiperefresh);
+
         new RetrieveFeedTask().execute();
+
+
+        swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        swipeRefreshLayout.setRefreshing(true);
+                        cryptoList = new ArrayList<>();
+                        new RetrieveFeedTask().execute();
+
+                    }
+                }
+        );
+
         return v;
 
     }
@@ -104,7 +120,7 @@ public class TickerTab extends Fragment {
         mResponseView = getView().findViewById(R.id.responseView);
     }*/
 
-    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
+    private class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
         //private Exception exception;
 
@@ -134,6 +150,7 @@ public class TickerTab extends Fragment {
                 response = "THERE WAS AN ERROR";
             }
             mProgressBar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
             //Log.i("INFO", response);
             //mResponseView.setText(response);
             //swipeRefreshLayout.setRefreshing(false);
@@ -199,11 +216,12 @@ public class TickerTab extends Fragment {
                 // use a linear layout manager
                 layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
-                mAdapter = new TicketAdapter(cryptoList);
+                mAdapter = new TickerAdapter(cryptoList);
 
                 recyclerView.addItemDecoration
                         (new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                 recyclerView.setAdapter(mAdapter);
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

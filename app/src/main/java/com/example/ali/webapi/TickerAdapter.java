@@ -15,18 +15,18 @@ import java.util.HashMap;
  * Created by Ali on 1/11/2018.
  */
 
-public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder> {
+public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<HashMap<String,String>> values;
 
-    /*public TicketAdapter(Context context) {
+    /*public TickerAdapter(Context context) {
         this.context = context;
     }*/
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TicketAdapter(ArrayList<HashMap<String,String>> myDataset) {
+    public TickerAdapter(ArrayList<HashMap<String,String>> myDataset) {
         values = myDataset;
     }
 
@@ -52,7 +52,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
 
 
     @Override
-    public TicketAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TickerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
@@ -63,7 +63,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(TicketAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(TickerAdapter.ViewHolder holder, int position) {
         HashMap<String,String> map = values.get(position);
         holder.cryptoID.setText(map.get("id"));
         holder.price.setText(map.get("price"));
