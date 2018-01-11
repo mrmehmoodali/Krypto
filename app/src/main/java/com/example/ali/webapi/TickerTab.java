@@ -5,14 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +45,11 @@ public class TickerTab extends Fragment {
     };
     ProgressBar mProgressBar;
     //TextView mResponseView;
-    ListView mListView;
+    //ListView mListView;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     //SwipeRefreshLayout swipeRefreshLayout;
     //TickerView mTickerView;
     /*@Override
@@ -81,9 +85,13 @@ public class TickerTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.ticker_tab,container,false);
         //mResponseView = v.findViewById(R.id.responseView);
-        mListView = v.findViewById(R.id.list);
+        //mListView = v.findViewById(R.id.list);
         cryptoList = new ArrayList<>();
         mProgressBar = v.findViewById(R.id.progressBar);
+        recyclerView = v.findViewById(R.id.my_recycler_view);
+
+
+
         //TextView mResponseView = v.findViewById(R.id.responseView);
         //swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         new RetrieveFeedTask().execute();
@@ -180,12 +188,22 @@ public class TickerTab extends Fragment {
 
                 //Log.i("LIST", String.valueOf(Arrays.asList(cryptoList)));
 
-                ListAdapter adapter = new SimpleAdapter(
+                /*ListAdapter adapter = new SimpleAdapter(
                         getActivity(), cryptoList,
                         R.layout.ticker_list_items, new String[]{"id","price","icon","max24","min24"},
                         new int[]{R.id.cryptoId, R.id.price, R.id.imageView, R.id.max24, R.id.min24});
 
-                mListView.setAdapter(adapter);
+                mListView.setAdapter(adapter);*/
+
+                recyclerView.setHasFixedSize(true);
+                // use a linear layout manager
+                layoutManager = new LinearLayoutManager(getActivity());
+                recyclerView.setLayoutManager(layoutManager);
+                mAdapter = new TicketAdapter(cryptoList);
+
+                recyclerView.addItemDecoration
+                        (new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                recyclerView.setAdapter(mAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
