@@ -52,35 +52,6 @@ public class TickerTab extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    //TickerView mTickerView;
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //mProgressBar = findViewById(R.id.progressBar);
-        //mResponseView = getView().findViewById(R.id.responseView);
-        //swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-
-        //new RetrieveFeedTask().execute();
-
-        //swipeRefreshLayout.setOnRefreshListener(this);
-
-        /*
-          Showing Swipe Refresh animation on activity create
-          As animation won't start on onCreate, post runnable is used
-         */
-        /*swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
-
-                                        new RetrieveFeedTask().execute();
-                                    }
-                                }
-        );
-
-        new RetrieveFeedTask().execute();
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,10 +61,6 @@ public class TickerTab extends Fragment {
         cryptoList = new ArrayList<>();
         mProgressBar = v.findViewById(R.id.progressBar);
         recyclerView = v.findViewById(R.id.my_recycler_view);
-
-
-
-        //TextView mResponseView = v.findViewById(R.id.responseView);
         swipeRefreshLayout = v.findViewById(R.id.swiperefresh);
 
         new RetrieveFeedTask().execute();
@@ -228,5 +195,4 @@ public class TickerTab extends Fragment {
             }
         }
     }
-
 }
