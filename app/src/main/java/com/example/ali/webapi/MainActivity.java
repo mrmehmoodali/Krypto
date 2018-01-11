@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.ali.webapi.SlidingTab.SlidingTabLayout;
+import com.example.ali.webapi.SlidingTab.ViewPagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Ticker","Website"};
-    int Numboftabs =2;
+    CharSequence Titles[]={"Ticker","News","Website"};
+    int Numboftabs =3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

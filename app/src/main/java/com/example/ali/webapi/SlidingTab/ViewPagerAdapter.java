@@ -1,8 +1,12 @@
-package com.example.ali.webapi;
+package com.example.ali.webapi.SlidingTab;
 
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.ali.webapi.NewsTab;
+import com.example.ali.webapi.TickerTab;
+import com.example.ali.webapi.WebTab;
 
 /**
  * Created by Ali on 1/4/2018.
@@ -27,16 +31,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
 
-        if(position == 0) // if the position is 0 we are returning the First tab
-        {
-            return new MainActivityTickerTab();
-        }
-        else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            return new MainActivityNewsTab();
+        switch (position) {
+            case 0:
+                return new TickerTab();
+            case 1:
+                return new NewsTab();
+            case 2:
+                return new WebTab();
         }
 
-
+        return null;
     }
 
     // This method return the titles for the Tabs in the Tab Strip

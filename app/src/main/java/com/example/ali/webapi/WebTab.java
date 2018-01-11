@@ -11,15 +11,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 /**
- * Created by Ali on 1/4/2018.
+ * Created by Ali on 1/11/2018.
  */
 
-public class MainActivityNewsTab extends Fragment {
+public class WebTab extends Fragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_news_tab,container,false);
+        View v =inflater.inflate(R.layout.web_tab,container,false);
         WebView webview = v.findViewById(R.id.webview);
         webview.setWebViewClient(new WebViewClient() {
             @Override

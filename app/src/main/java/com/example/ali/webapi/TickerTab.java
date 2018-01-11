@@ -28,7 +28,7 @@ import static android.content.ContentValues.TAG;
  * Created by Ali on 1/4/2018.
  */
 
-public class MainActivityTickerTab extends Fragment {
+public class TickerTab extends Fragment {
 
     private static final String API_URL = "https://koinex.in/api/ticker";
     ArrayList<HashMap<String, String>> cryptoList;
@@ -79,7 +79,7 @@ public class MainActivityTickerTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_ticker_tab,container,false);
+        View v =inflater.inflate(R.layout.ticker_tab,container,false);
         //mResponseView = v.findViewById(R.id.responseView);
         mListView = v.findViewById(R.id.list);
         cryptoList = new ArrayList<>();
@@ -110,28 +110,6 @@ public class MainActivityTickerTab extends Fragment {
         protected String doInBackground(Void... urls) {
             //String email = emailText.getText().toString();
             // Do some validation here
-
-            /*try {
-                URL url = new URL(API_URL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                }
-                finally{
-                    urlConnection.disconnect();
-                }
-            }
-            catch(Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                return null;
-            }*/
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
