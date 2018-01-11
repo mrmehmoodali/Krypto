@@ -1,5 +1,6 @@
 package com.example.ali.webapi;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,19 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Ali on 1/4/2018.
@@ -43,7 +43,7 @@ public class MainActivityTickerTab extends Fragment {
             R.drawable.ic_omg,
             R.drawable.ic_gnt,
     };
-    //ProgressBar mProgressBar;
+    ProgressBar mProgressBar;
     //TextView mResponseView;
     ListView mListView;
     //SwipeRefreshLayout swipeRefreshLayout;
@@ -83,7 +83,7 @@ public class MainActivityTickerTab extends Fragment {
         //mResponseView = v.findViewById(R.id.responseView);
         mListView = v.findViewById(R.id.list);
         cryptoList = new ArrayList<>();
-        //mProgressBar = findViewById(R.id.progressBar);
+        mProgressBar = v.findViewById(R.id.progressBar);
         //TextView mResponseView = v.findViewById(R.id.responseView);
         //swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         new RetrieveFeedTask().execute();
@@ -102,7 +102,7 @@ public class MainActivityTickerTab extends Fragment {
 
         protected void onPreExecute() {
 
-            //mProgressBar.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
             //mResponseView.setText(" ");
 
         }
@@ -111,7 +111,7 @@ public class MainActivityTickerTab extends Fragment {
             //String email = emailText.getText().toString();
             // Do some validation here
 
-            try {
+            /*try {
                 URL url = new URL(API_URL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
@@ -131,14 +131,23 @@ public class MainActivityTickerTab extends Fragment {
             catch(Exception e) {
                 Log.e("ERROR", e.getMessage(), e);
                 return null;
-            }
+            }*/
+            HttpHandler sh = new HttpHandler();
+
+            // Making a request to url and getting response
+            String response = sh.makeServiceCall(API_URL);
+
+            Log.e(TAG, "Response from url: " + response);
+
+            return response;
         }
 
+        @SuppressLint("NewApi")
         protected void onPostExecute(String response) {
             if(response == null) {
                 response = "THERE WAS AN ERROR";
             }
-            //mProgressBar.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.GONE);
             //Log.i("INFO", response);
             //mResponseView.setText(response);
             //swipeRefreshLayout.setRefreshing(false);
