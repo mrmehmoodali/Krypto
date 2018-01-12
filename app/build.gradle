@@ -28,4 +28,5 @@ dependencies {
     compile 'com.robinhood.ticker:ticker:1.2.2'
     compile 'com.android.support:design:27.0.2'
     compile 'com.android.support:support-v4:27.0.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
