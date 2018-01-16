@@ -4,8 +4,8 @@ package com.example.ali.webapi.SlidingTab;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ali.webapi.NewsTab;
-import com.example.ali.webapi.TickerTab;
+import com.example.ali.webapi.News.NewsTab;
+import com.example.ali.webapi.Ticker.TickerTab;
 import com.example.ali.webapi.WebTab;
 
 /**

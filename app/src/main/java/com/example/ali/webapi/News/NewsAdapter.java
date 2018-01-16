@@ -1,4 +1,4 @@
-package com.example.ali.webapi;
+package com.example.ali.webapi.News;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ali.webapi.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.ali.webapi;
+package com.example.ali.webapi.Ticker;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.example.ali.webapi.HttpHandler;
+import com.example.ali.webapi.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="6dp"
         app:cardBackgroundColor="@color/cardBackground"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="2dp"
         app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +99,7 @@
                     tools:layout_conversion_absoluteWidth="159dp" />
 
                 <TextView
-                    android:id="@+id/min24"
+                    android:id="@+id/max24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -110,12 +110,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/price"
                     tools:layout_conversion_absoluteHeight="25dp"
                     tools:layout_conversion_absoluteWidth="72dp"
-                    tools:text="Minimum Price" />
+                    tools:text="Maximum Price" />
 
                 <TextView
-                    android:id="@+id/max24"
+                    android:id="@+id/min24"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="16dp"
                     android:layout_marginBottom="4dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginTop="4dp"
@@ -123,10 +123,10 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/min24"
+                    app:layout_constraintTop_toBottomOf="@+id/max24"
                     tools:layout_conversion_absoluteHeight="25dp"
                     tools:layout_conversion_absoluteWidth="72dp"
-                    tools:text="Maximum Price" />
+                    tools:text="Minimum Price" />
 
                 <TextView
                     android:id="@+id/textView"

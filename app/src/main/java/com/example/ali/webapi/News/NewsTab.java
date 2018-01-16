@@ -1,6 +1,8 @@
-package com.example.ali.webapi;
+package com.example.ali.webapi.News;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.example.ali.webapi.HttpHandler;
+import com.example.ali.webapi.R;
+import com.example.ali.webapi.RecyclerTouchListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +40,7 @@ public class NewsTab extends Fragment {
     ProgressBar loader;
     private RecyclerView.LayoutManager nLayoutManager;
     private RecyclerView.Adapter nAdapter;
+    Context thisContext;
 
     ArrayList<HashMap<String, String>> dataList = new ArrayList<>();
     static final String KEY_AUTHOR = "author";
@@ -47,6 +54,7 @@ public class NewsTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.news_tab,container,false);
+        thisContext = container.getContext();
         dataList = new ArrayList<>();
         loader = v.findViewById(R.id.progressBar);
         listNews = v.findViewById(R.id.news_recycler_view);
@@ -106,6 +114,19 @@ public class NewsTab extends Fragment {
                 //listNews.addItemDecoration
                  //       (new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                 listNews.setAdapter(nAdapter);
+
+                listNews.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
+                        listNews, new RecyclerTouchListener.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        Intent i = new Intent(thisContext , NewsDetails.class);
+                        i.putExtra("url", dataList.get(+position).get(KEY_URL));
+                        startActivity(i);
+                    }
+
+                }));
 
             } catch (JSONException e) {
                 e.printStackTrace();
