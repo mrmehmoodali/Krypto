@@ -1,6 +1,7 @@
 package com.example.ali.webapi.Ticker;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.ali.webapi.R;
 
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
         public TextView min24;
         public ImageView imageView;
         public View layout;
+        CardView cardViewTicker;
 
         public ViewHolder(View v) {
             super(v);
@@ -49,6 +53,7 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
             max24       = v.findViewById(R.id.max24);
             min24       = v.findViewById(R.id.min24);
             imageView   = v.findViewById(R.id.imageView);
+            cardViewTicker = v.findViewById(R.id.cardViewTicker);
         }
     }
 
@@ -66,6 +71,7 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(TickerAdapter.ViewHolder holder, int position) {
+        YoYo.with(Techniques.FadeIn).playOn(holder.cardViewTicker);
         HashMap<String,String> map = values.get(position);
         holder.cryptoID.setText(map.get("id"));
         holder.price.setText(map.get("price"));

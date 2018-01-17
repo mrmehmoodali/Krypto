@@ -1,6 +1,7 @@
 package com.example.ali.webapi.News;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.ali.webapi.R;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +44,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         public TextView sdetails;
         public TextView mtime;
         public View layout;
+        CardView cardViewNews;
 
         public ViewHolder(View v) {
             super(v);
@@ -50,6 +54,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             mtitle       = v.findViewById(R.id.title);
             sdetails       = v.findViewById(R.id.sdetails);
             mtime   = v.findViewById(R.id.time);
+            cardViewNews = v.findViewById(R.id.cardViewNews);
         }
     }
 
@@ -68,6 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(NewsAdapter.ViewHolder holder, int position) {
+        YoYo.with(Techniques.FadeIn).playOn(holder.cardViewNews);
         HashMap<String,String> map = values.get(position);
         //holder.author.setText(map.get(NewsTab.KEY_AUTHOR));
         holder.mtitle.setText(map.get(NewsTab.KEY_TITLE));
