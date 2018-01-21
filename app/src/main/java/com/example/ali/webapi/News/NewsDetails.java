@@ -1,33 +1,42 @@
 package com.example.ali.webapi.News;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.example.ali.webapi.R;
 
-
 /**
- * Created by Ali on 1/16/2018.
+ * A simple {@link Fragment} subclass.
  */
+public class NewsDetails extends Fragment {
 
-public class NewsDetails extends AppCompatActivity {
     WebView webView;
     ProgressBar loader;
-    String url = "";
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.news_details);
+    //String url = "";
 
-        Intent intent = getIntent();
-        url = intent.getStringExtra("url");
-        loader = findViewById(R.id.loader);
-        webView = findViewById(R.id.webView);
+
+
+    public NewsDetails() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.news_details, container, false);
+
+        String url = getArguments().getString("url");
+
+        loader = v.findViewById(R.id.loader);
+        webView = v.findViewById(R.id.webView);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
         webView.loadUrl(url);
@@ -42,6 +51,6 @@ public class NewsDetails extends AppCompatActivity {
                 }
             }
         });
-
+        return v;
     }
 }

@@ -2,11 +2,11 @@ package com.example.ali.webapi.News;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,6 +41,7 @@ public class NewsTab extends Fragment {
     private RecyclerView.LayoutManager nLayoutManager;
     private RecyclerView.Adapter nAdapter;
     Context thisContext;
+    String passedUrl = "";
 
     ArrayList<HashMap<String, String>> dataList = new ArrayList<>();
     static final String KEY_AUTHOR = "author";
@@ -121,9 +122,24 @@ public class NewsTab extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Intent i = new Intent(thisContext , NewsDetails.class);
-                        i.putExtra("url", dataList.get(+position).get(KEY_URL));
-                        startActivity(i);
+                        //passedUrl = dataList.get(+position).get(KEY_URL);
+                        NewsDetails blankFragment = new NewsDetails();
+
+                        Bundle newsBundle = new Bundle();
+                        newsBundle.putString("url",dataList.get(+position).get(KEY_URL));
+                        blankFragment.setArguments(newsBundle);
+
+                        FragmentManager manager = getFragmentManager();
+                        if (manager != null) {
+                            manager.beginTransaction()
+                                    .replace(R.id.testitout, blankFragment, blankFragment.getTag())
+                                    .addToBackStack(null)
+                                    .commit();
+                        }
+
+                        //Intent i = new Intent(thisContext , NewsDetails.class);
+                        //i.putExtra("url", dataList.get(+position).get(KEY_URL));
+                        //startActivity(i);
                     }
 
                 }));

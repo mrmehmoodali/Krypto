@@ -3,7 +3,6 @@ package com.example.ali.webapi;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.example.ali.webapi.SlidingTab.SlidingTabLayout;
 import com.example.ali.webapi.SlidingTab.ViewPagerAdapter;
@@ -17,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    long lastPress;
-    Toast backpressToast;
+    //long lastPress;
+    //Toast backpressToast;
     CharSequence Titles[]={"Ticker","News","Website"};
     int Numboftabs =3;
 
@@ -26,14 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         // Creating The Toolbar and setting it as the Toolbar for the activity
 
         //toolbar = (Toolbar) findViewById(R.id.tool_bar);
         //setSupportActionBar(toolbar);
-
-
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
@@ -69,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        long currentTime = System.currentTimeMillis();
+        /*long currentTime = System.currentTimeMillis();
         if(currentTime - lastPress > 3000){
             backpressToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_LONG);
             backpressToast.show();
@@ -77,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             if (backpressToast != null) backpressToast.cancel();
             super.onBackPressed();
+        }*/
+        if(getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        }
+        else {
+            getFragmentManager().popBackStack();
         }
     }
     /*@Override
