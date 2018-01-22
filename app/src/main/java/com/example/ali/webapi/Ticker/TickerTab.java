@@ -17,13 +17,12 @@ import android.widget.ProgressBar;
 import com.example.ali.webapi.HttpHandler;
 import com.example.ali.webapi.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 
@@ -33,8 +32,28 @@ import static android.content.ContentValues.TAG;
 
 public class TickerTab extends Fragment {
 
-    private static final String API_URL = "https://koinex.in/api/ticker";
+    //private static final String API_URL = "https://koinex.in/api/ticker";
+    private static final String API_URL = "https://api.coinmarketcap.com/v1/ticker/?convert=INR&limit=20";
     ArrayList<HashMap<String, String>> cryptoList;
+
+    static final String KEY_24H_VOLUME_INR	           = "24h_volume_inr"
+                       ,KEY_24H_VOLUME_USD	           = "24h_volume_usd"
+                       ,KEY_AVAILABLE_SUPPLY	       = "available_supply"
+                       ,KEY_ID		                   = "id"
+                       ,KEY_LAST_UPDATED	           = "last_updated"
+                       ,KEY_MARKET_CAP_INR	           = "market_cap_inr"
+                       ,KEY_MARKET_CAP_USD	           = "market_cap_usd"
+                       ,KEY_MAX_SUPPLY	               = "max_supply"
+                       ,KEY_NAME		               = "name"
+                       ,KEY_PERCENT_CHANGE_1H          = "percent_change_1h"
+                       ,KEY_PERCENT_CHANGE_24H         = "percent_change_24h"
+                       ,KEY_PERCENT_CHANGE_7D          = "percent_change_7"
+                       ,KEY_PRICE_BTC		           = "price_btc"
+                       ,KEY_PRICE_INR		           = "price_inr"
+                       ,KEY_PRICE_USD	               = "price_usd"
+                       ,KEY_RANK		               = "rank"
+                       ,KEY_SYMBOL		               = "symbol"
+                       ,KEY_TOTAL_SUPPLY	           = "total_supply";
 
     int[] icons = new int[]{
             R.drawable.ic_btc,
@@ -127,15 +146,35 @@ public class TickerTab extends Fragment {
             // TODO: do something with the feed
 
             try {
-                /*JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-                JSONObject rate = object.getJSONObject("prices");
-                String xTicker = rate.getString("XRP");
-                //mTickerView.setText(xTicker);
-                mResponseView.setText(xTicker);
-                //int likelihood = object.getInt("likelihood");
-                //JSONArray photos = object.getJSONArray("photos");*/
 
-                JSONObject jsonObj = new JSONObject(response);
+                //JSONObject jsonResponse = new JSONObject(xml);
+                JSONArray jsonArray = new JSONArray(response);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put(KEY_24H_VOLUME_INR	  , jsonObject.optString(KEY_24H_VOLUME_INR	  ));
+                    map.put(KEY_24H_VOLUME_USD	  , jsonObject.optString(KEY_24H_VOLUME_USD	  ));
+                    map.put(KEY_AVAILABLE_SUPPLY  , jsonObject.optString(KEY_AVAILABLE_SUPPLY));
+                    map.put(KEY_ID		          , jsonObject.optString(KEY_ID		          ));
+                    map.put(KEY_LAST_UPDATED	  , jsonObject.optString(KEY_LAST_UPDATED	  ));
+                    map.put(KEY_MARKET_CAP_INR	  , jsonObject.optString(KEY_MARKET_CAP_INR	  ));
+                    map.put(KEY_MARKET_CAP_USD	  , jsonObject.optString(KEY_MARKET_CAP_USD	  ));
+                    map.put(KEY_MAX_SUPPLY	      , jsonObject.optString(KEY_MAX_SUPPLY	      ));
+                    map.put(KEY_NAME		      , jsonObject.optString(KEY_NAME		      ));
+                    map.put(KEY_PERCENT_CHANGE_1H , jsonObject.optString(KEY_PERCENT_CHANGE_1H ));
+                    //Log.e(TAG, "Percent of " + jsonObject.getInt(KEY_PERCENT_CHANGE_1H));
+                    map.put(KEY_PERCENT_CHANGE_24H, jsonObject.optString(KEY_PERCENT_CHANGE_24H));
+                    map.put(KEY_PERCENT_CHANGE_7D , jsonObject.optString(KEY_PERCENT_CHANGE_7D ));
+                    map.put(KEY_PRICE_BTC		  , jsonObject.optString(KEY_PRICE_BTC		  ));
+                    map.put(KEY_PRICE_INR		  , jsonObject.optString(KEY_PRICE_INR		  ));
+                    map.put(KEY_PRICE_USD	      , jsonObject.optString(KEY_PRICE_USD	      ));
+                    map.put(KEY_RANK		      , jsonObject.optString(KEY_RANK		      ));
+                    map.put(KEY_SYMBOL		      , jsonObject.optString(KEY_SYMBOL		      ));
+                    map.put(KEY_TOTAL_SUPPLY	  , jsonObject.optString(KEY_TOTAL_SUPPLY	  ));
+                    cryptoList.add(map);
+                }
+                /*JSONObject jsonObj = new JSONObject(response);
                 JSONObject rate = jsonObj.getJSONObject("prices");
                 JSONObject stats = jsonObj.getJSONObject("stats");
                 Integer i = 0;
@@ -170,16 +209,7 @@ public class TickerTab extends Fragment {
                     }
                     cryptoList.add(temp);
 
-                }
-
-                //Log.i("LIST", String.valueOf(Arrays.asList(cryptoList)));
-
-                /*ListAdapter adapter = new SimpleAdapter(
-                        getActivity(), cryptoList,
-                        R.layout.ticker_list_items, new String[]{"id","price","icon","max24","min24"},
-                        new int[]{R.id.cryptoId, R.id.price, R.id.imageView, R.id.max24, R.id.min24});
-
-                mListView.setAdapter(adapter);*/
+                }*/
 
                 recyclerView.setHasFixedSize(true);
                 // use a linear layout manager

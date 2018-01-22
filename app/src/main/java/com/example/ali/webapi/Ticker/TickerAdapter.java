@@ -73,12 +73,13 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
     public void onBindViewHolder(TickerAdapter.ViewHolder holder, int position) {
         YoYo.with(Techniques.FadeIn).playOn(holder.cardViewTicker);
         HashMap<String,String> map = values.get(position);
-        holder.cryptoID.setText(map.get("id"));
-        holder.price.setText(map.get("price"));
-        holder.max24.setText(map.get("max24"));
-        holder.min24.setText(map.get("min24"));
-        holder.imageView.setImageResource(Integer.parseInt(map.get("icon")));
-
+        holder.cryptoID.setText(map.get(TickerTab.KEY_SYMBOL));
+        holder.price.setText(map.get(TickerTab.KEY_PRICE_INR));
+        holder.max24.setText(map.get(TickerTab.KEY_PERCENT_CHANGE_1H));
+        holder.min24.setText(map.get(TickerTab.KEY_PERCENT_CHANGE_24H));
+        //holder.imageView.setImageResource(Integer.parseInt(map.get("icon")));
+        //holder.imageView.setImageResource(R.drawable.);
+        //Log.e(TAG, "Percent " + String.valueOf(map.get(TickerTab.KEY_PERCENT_CHANGE_1H)));
     }
 
     @Override
