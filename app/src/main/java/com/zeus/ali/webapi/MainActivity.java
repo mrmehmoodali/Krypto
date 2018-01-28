@@ -1,11 +1,11 @@
-package com.example.ali.webapi;
+package com.zeus.ali.webapi;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.ali.webapi.SlidingTab.SlidingTabLayout;
-import com.example.ali.webapi.SlidingTab.ViewPagerAdapter;
+import com.zeus.ali.webapi.SlidingTab.SlidingTabLayout;
+import com.zeus.ali.webapi.SlidingTab.ViewPagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {

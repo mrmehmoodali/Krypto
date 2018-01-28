@@ -1,4 +1,4 @@
-package com.example.ali.webapi.Ticker;
+package com.zeus.ali.webapi.Ticker;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.ali.webapi.R;
+import com.zeus.ali.webapi.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

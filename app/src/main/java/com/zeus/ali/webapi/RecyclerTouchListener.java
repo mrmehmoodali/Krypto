@@ -1,4 +1,4 @@
-package com.example.ali.webapi;
+package com.zeus.ali.webapi;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

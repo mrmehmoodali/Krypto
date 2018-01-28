@@ -1,4 +1,4 @@
-package com.example.ali.webapi.News;
+package com.zeus.ali.webapi.News;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.ali.webapi.HttpHandler;
-import com.example.ali.webapi.R;
-import com.example.ali.webapi.RecyclerTouchListener;
+import com.zeus.ali.webapi.HttpHandler;
+import com.zeus.ali.webapi.R;
+import com.zeus.ali.webapi.RecyclerTouchListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,7 +68,7 @@ public class NewsTab extends Fragment {
         //private Exception exception;
 
         protected void onPreExecute() {
-
+            //loader.setVisibility(View.VISIBLE);
             super.onPreExecute();
 
         }
@@ -90,6 +90,8 @@ public class NewsTab extends Fragment {
 
         @SuppressLint("NewApi")
         protected void onPostExecute(String xml) {
+
+            //loader.setVisibility(View.GONE);
 
             try {
                 JSONObject jsonResponse = new JSONObject(xml);

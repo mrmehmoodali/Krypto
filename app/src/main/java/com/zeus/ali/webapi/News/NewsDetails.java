@@ -1,4 +1,4 @@
-package com.example.ali.webapi.News;
+package com.zeus.ali.webapi.News;
 
 
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-import com.example.ali.webapi.R;
+import com.zeus.ali.webapi.R;
 
 /**
  * A simple {@link Fragment} subclass.

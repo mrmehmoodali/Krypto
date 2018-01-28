@@ -1,12 +1,12 @@
-package com.example.ali.webapi.SlidingTab;
+package com.zeus.ali.webapi.SlidingTab;
 
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ali.webapi.News.NewsTab;
-import com.example.ali.webapi.Ticker.TickerTab;
-import com.example.ali.webapi.WebTab;
+import com.zeus.ali.webapi.News.NewsTab;
+import com.zeus.ali.webapi.Ticker.TickerTab;
+import com.zeus.ali.webapi.WebTab;
 
 /**
  * Created by Ali on 1/4/2018.

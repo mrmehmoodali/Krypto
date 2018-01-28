@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.ali.webapi.SlidingTab;
+package com.zeus.ali.webapi.SlidingTab;
 
 import android.R;
 import android.content.Context;

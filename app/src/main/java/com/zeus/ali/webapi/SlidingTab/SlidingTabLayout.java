@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.ali.webapi.SlidingTab;
+package com.zeus.ali.webapi.SlidingTab;
 
 import android.content.Context;
 import android.graphics.Typeface;
