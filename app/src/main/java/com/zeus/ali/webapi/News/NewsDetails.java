@@ -44,7 +44,7 @@ public class NewsDetails extends Fragment {
 
         webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) {
+                if (progress == 80) {
                     loader.setVisibility(View.GONE);
                 } else {
                     loader.setVisibility(View.VISIBLE);
