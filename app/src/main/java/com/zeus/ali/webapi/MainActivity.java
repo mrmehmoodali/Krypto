@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     //long lastPress;
     //Toast backpressToast;
-    CharSequence Titles[]={"Ticker","News","Website"};
-    int Numboftabs =3;
+    CharSequence Titles[]={"Ticker","News"};
+    int Numboftabs =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
