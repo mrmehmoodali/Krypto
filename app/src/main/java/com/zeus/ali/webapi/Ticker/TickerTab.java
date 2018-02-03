@@ -162,12 +162,19 @@ public class TickerTab extends Fragment {
                     map.put(KEY_MARKET_CAP_USD	  , jsonObject.optString(KEY_MARKET_CAP_USD	  ));
                     map.put(KEY_MAX_SUPPLY	      , jsonObject.optString(KEY_MAX_SUPPLY	      ));
                     map.put(KEY_NAME		      , jsonObject.optString(KEY_NAME		      ));
-                    map.put(KEY_PERCENT_CHANGE_1H , jsonObject.optString(KEY_PERCENT_CHANGE_1H ));
+                    map.put(KEY_PERCENT_CHANGE_1H , jsonObject.optString(KEY_PERCENT_CHANGE_1H )+"%");
                     //Log.e(TAG, "Percent of " + jsonObject.getInt(KEY_PERCENT_CHANGE_1H));
-                    map.put(KEY_PERCENT_CHANGE_24H, jsonObject.optString(KEY_PERCENT_CHANGE_24H));
+                    map.put(KEY_PERCENT_CHANGE_24H, jsonObject.optString(KEY_PERCENT_CHANGE_24H)+"%");
                     map.put(KEY_PERCENT_CHANGE_7D , jsonObject.optString(KEY_PERCENT_CHANGE_7D ));
                     map.put(KEY_PRICE_BTC		  , jsonObject.optString(KEY_PRICE_BTC		  ));
-                    map.put(KEY_PRICE_INR		  , jsonObject.optString(KEY_PRICE_INR		  ));
+
+                    //DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                    String tempPrice1 = jsonObject.optString(KEY_PRICE_INR);
+                    String tempPrice2 = tempPrice1.substring(0,tempPrice1.indexOf(".")+3);
+
+                    map.put(KEY_PRICE_INR		  , tempPrice2);
+
+
                     map.put(KEY_PRICE_USD	      , jsonObject.optString(KEY_PRICE_USD	      ));
                     map.put(KEY_RANK		      , jsonObject.optString(KEY_RANK		      ));
                     map.put(KEY_SYMBOL		      , jsonObject.optString(KEY_SYMBOL		      ));
@@ -202,8 +209,8 @@ public class TickerTab extends Fragment {
                             temp.put("hbid", highestBid);
                             temp.put("ltprice", lastTradedPrice);
                             temp.put("lask", lowestAsk);
-                            temp.put("max24", max24hrs);
-                            temp.put("min24", min24hrs);
+                            temp.put("percent1H", max24hrs);
+                            temp.put("percent24H", min24hrs);
                             temp.put("vol24", vol24hrs);
                         }
                     }
