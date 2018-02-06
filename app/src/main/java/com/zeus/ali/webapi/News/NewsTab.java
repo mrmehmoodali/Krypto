@@ -113,7 +113,7 @@ public class NewsTab extends Fragment {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     HashMap<String, String> map = new HashMap<>();
-                    map.put(KEY_AUTHOR, jsonObject.optString(KEY_AUTHOR));
+                    //map.put(KEY_AUTHOR, jsonObject.optString(KEY_AUTHOR));
                     map.put(KEY_TITLE, jsonObject.optString(KEY_TITLE));
                     map.put(KEY_DESCRIPTION, jsonObject.optString(KEY_DESCRIPTION));
                     map.put(KEY_URL, jsonObject.optString(KEY_URL));
@@ -138,16 +138,16 @@ public class NewsTab extends Fragment {
                     public void onItemClick(View view, int position) {
 
                         //passedUrl = dataList.get(+position).get(KEY_URL);
-                        NewsDetails blankFragment = new NewsDetails();
+                        NewsDetails newsDetails = new NewsDetails();
 
                         Bundle newsBundle = new Bundle();
                         newsBundle.putString("url",dataList.get(+position).get(KEY_URL));
-                        blankFragment.setArguments(newsBundle);
+                        newsDetails.setArguments(newsBundle);
 
                         FragmentManager manager = getFragmentManager();
                         if (manager != null) {
                             manager.beginTransaction()
-                                    .replace(R.id.testitout, blankFragment, blankFragment.getTag())
+                                    .replace(R.id.newstab, newsDetails, newsDetails.getTag())
                                     .addToBackStack(null)
                                     .commit();
                         }

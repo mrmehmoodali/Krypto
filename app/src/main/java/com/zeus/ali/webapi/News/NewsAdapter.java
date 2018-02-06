@@ -50,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             super(v);
             layout      = v;
             galleryImage    = v.findViewById(R.id.galleryImage);
-            author       = v.findViewById(R.id.author);
+            //author       = v.findViewById(R.id.author);
             mtitle       = v.findViewById(R.id.title);
             sdetails       = v.findViewById(R.id.sdetails);
             mtime   = v.findViewById(R.id.time);
@@ -78,7 +78,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         //holder.author.setText(map.get(NewsTab.KEY_AUTHOR));
         holder.mtitle.setText(map.get(NewsTab.KEY_TITLE));
         holder.sdetails.setText(map.get(NewsTab.KEY_DESCRIPTION));
-        holder.mtime.setText(map.get(NewsTab.KEY_PUBLISHEDAT));
+        holder.mtime.setText(map.get(NewsTab.KEY_PUBLISHEDAT).substring(0,10));
         //holder.galleryImage.setImageResource(Integer.parseInt(map.get(NewsTab.KEY_URLTOIMAGE)));
         if(map.get(NewsTab.KEY_URLTOIMAGE).length() < 5)
         {

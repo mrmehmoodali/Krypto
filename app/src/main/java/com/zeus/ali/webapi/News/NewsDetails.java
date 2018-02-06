@@ -44,12 +44,13 @@ public class NewsDetails extends Fragment {
 
         webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
-                if (progress == 80) {
+                if (progress == 10) {
                     loader.setVisibility(View.GONE);
                 } else {
                     loader.setVisibility(View.VISIBLE);
                 }
             }
+
         });
         return v;
     }
