@@ -1,6 +1,9 @@
 package com.zeus.ali.webapi.Ticker;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.zeus.ali.webapi.HttpHandler;
 import com.zeus.ali.webapi.R;
@@ -84,13 +88,30 @@ public class TickerTab extends Fragment {
         recyclerView = v.findViewById(R.id.my_recycler_view);
         swipeRefreshLayout = v.findViewById(R.id.swiperefresh);
 
-        new RetrieveFeedTask().execute();
+        //new RetrieveFeedTask().execute();
+
+
+        ConnectivityManager cm = (ConnectivityManager)
+                getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (null != activeNetwork) {
+            new RetrieveFeedTask().execute();
+        } else {
+            Toast.makeText(
+                    getActivity().getApplicationContext(), "No internet connection!", Toast.LENGTH_LONG).show();}
 
 
         swipeRefreshLayout.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
+                        ConnectivityManager cm = (ConnectivityManager)
+                                getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                        if (null != activeNetwork) {
+                        } else {
+                            Toast.makeText(
+                                    getActivity().getApplicationContext(), "No internet connection!", Toast.LENGTH_LONG).show();}
                         swipeRefreshLayout.setRefreshing(true);
                         cryptoList = new ArrayList<>();
                         new RetrieveFeedTask().execute();

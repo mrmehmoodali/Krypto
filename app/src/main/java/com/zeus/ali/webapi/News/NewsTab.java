@@ -2,6 +2,8 @@ package com.zeus.ali.webapi.News;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.zeus.ali.webapi.HttpHandler;
 import com.zeus.ali.webapi.R;
@@ -59,7 +62,17 @@ public class NewsTab extends Fragment {
         dataList = new ArrayList<>();
         loader = v.findViewById(R.id.progressBar);
         listNews = v.findViewById(R.id.news_recycler_view);
-        new DownloadNews().execute();
+        //new DownloadNews().execute();
+
+        ConnectivityManager cm = (ConnectivityManager)
+                getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (null != activeNetwork) {
+            new DownloadNews().execute();
+        } else {
+            Toast.makeText(
+                    getActivity().getApplicationContext(), "No internet connection!", Toast.LENGTH_LONG).show();}
+
         return v;
     }
 
