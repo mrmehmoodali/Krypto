@@ -47,7 +47,7 @@ public class TickerTab extends Fragment {
                        ,KEY_NAME		               = "name"
                        ,KEY_PERCENT_CHANGE_1H          = "percent_change_1h"
                        ,KEY_PERCENT_CHANGE_24H         = "percent_change_24h"
-                       ,KEY_PERCENT_CHANGE_7D          = "percent_change_7"
+                       ,KEY_PERCENT_CHANGE_7D          = "percent_change_7d"
                        ,KEY_PRICE_BTC		           = "price_btc"
                        ,KEY_PRICE_INR		           = "price_inr"
                        ,KEY_PRICE_USD	               = "price_usd"
@@ -165,10 +165,12 @@ public class TickerTab extends Fragment {
                     map.put(KEY_PERCENT_CHANGE_1H , jsonObject.optString(KEY_PERCENT_CHANGE_1H )+"%");
                     //Log.e(TAG, "Percent of " + jsonObject.getInt(KEY_PERCENT_CHANGE_1H));
                     map.put(KEY_PERCENT_CHANGE_24H, jsonObject.optString(KEY_PERCENT_CHANGE_24H)+"%");
-                    map.put(KEY_PERCENT_CHANGE_7D , jsonObject.optString(KEY_PERCENT_CHANGE_7D ));
+                    map.put(KEY_PERCENT_CHANGE_7D , jsonObject.optString(KEY_PERCENT_CHANGE_7D )+"%");
                     map.put(KEY_PRICE_BTC		  , jsonObject.optString(KEY_PRICE_BTC		  ));
 
                     //DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                    //Log.e(TAG, "Percent of " + jsonObject.optString(KEY_PERCENT_CHANGE_7D ));
+
                     String tempPrice1 = jsonObject.optString(KEY_PRICE_INR);
                     String tempPrice2 = tempPrice1.substring(0,tempPrice1.indexOf(".")+3);
 

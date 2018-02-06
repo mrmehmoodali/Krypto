@@ -40,8 +40,10 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
         // each data item is just a string in this case
         public TextView cryptoID;
         public TextView price;
+        public TextView fullName;
         public TextView percent1H;
         public TextView percent24H;
+        public TextView percent7D;
         public ImageView imageView;
         public View layout;
         CardView cardViewTicker;
@@ -51,8 +53,10 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
             layout      = v;
             cryptoID    = v.findViewById(R.id.cryptoId);
             price       = v.findViewById(R.id.price);
-            percent1H = v.findViewById(R.id.max24);
-            percent24H = v.findViewById(R.id.min24);
+            fullName = v.findViewById(R.id.fullName);
+            percent1H = v.findViewById(R.id.per1H);
+            percent24H = v.findViewById(R.id.per24H);
+            percent7D = v.findViewById(R.id.per7day);
             imageView   = v.findViewById(R.id.imageView);
             cardViewTicker = v.findViewById(R.id.cardViewTicker);
         }
@@ -75,8 +79,10 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
         YoYo.with(Techniques.FadeIn).playOn(holder.cardViewTicker);
         HashMap<String,String> map = values.get(position);
         holder.cryptoID.setText(map.get(TickerTab.KEY_SYMBOL));
-
         holder.price.setText(map.get(TickerTab.KEY_PRICE_INR));
+        holder.fullName.setText(map.get(TickerTab.KEY_NAME));
+
+
         holder.percent1H.setText(map.get(TickerTab.KEY_PERCENT_CHANGE_1H));
 
         if (map.get(TickerTab.KEY_PERCENT_CHANGE_1H).substring(0,1).equals("-")){
@@ -93,6 +99,15 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
         }
         else{
             holder.percent24H.setTextColor(Color.GREEN);
+        }
+
+        holder.percent7D.setText(map.get(TickerTab.KEY_PERCENT_CHANGE_7D));
+
+        if (map.get(TickerTab.KEY_PERCENT_CHANGE_7D).substring(0,1).equals("-")){
+            holder.percent7D.setTextColor(Color.RED);
+        }
+        else{
+            holder.percent7D.setTextColor(Color.GREEN);
         }
         //holder.imageView.setImageResource(Integer.parseInt(map.get("icon")));
         //holder.imageView.setImageResource(R.drawable.);
