@@ -29,6 +29,7 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
     private ArrayList<HashMap<String,String>> values;
     private int mExpandedPosition = -1;
     private RecyclerView passedRView;
+    private ConstraintLayout rootConst;
 
     /*public TickerAdapter(Context context) {
         this.context = context;
@@ -72,6 +73,7 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
             cardViewTicker = v.findViewById(R.id.cardViewTicker);
             constraintLayout = v.findViewById(R.id.constraintLayout);
             testView = v.findViewById(R.id.my_recycler_view);
+            rootConst = v.findViewById(R.id.rootConst);
         }
     }
 
@@ -133,15 +135,24 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1:position;
+
+                /*ChangeBounds transition = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    transition = new ChangeBounds();
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    TransitionManager.beginDelayedTransition(passedRView);
+                    transition.setDuration(125);
+                }*/
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(rootConst);
                 }
 
                 //This removes the blink animation
                 ((SimpleItemAnimator) passedRView.getItemAnimator()).setSupportsChangeAnimations(false);
 
                 //notifyDataSetChanged();
-                notifyItemChanged(position);
+                //notifyItemChanged(position);
 
                 notifyItemRangeChanged(0, values.size());
             }
