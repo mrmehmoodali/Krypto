@@ -2,16 +2,18 @@ package com.zeus.ali.webapi.Ticker;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.zeus.ali.webapi.R;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
 
     private Context context;
     private ArrayList<HashMap<String,String>> values;
+    private int mExpandedPosition = -1;
+    private RecyclerView passedRView;
 
     /*public TickerAdapter(Context context) {
         this.context = context;
@@ -34,6 +38,11 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
     // Provide a suitable constructor (depends on the kind of dataset)
     public TickerAdapter(ArrayList<HashMap<String,String>> myDataset) {
         values = myDataset;
+    }
+
+    public TickerAdapter(ArrayList<HashMap<String,String>> myDataset, RecyclerView passedRView) {
+        values = myDataset;
+        this.passedRView = passedRView;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -47,6 +56,8 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
         public ImageView imageView;
         public View layout;
         CardView cardViewTicker;
+        public ConstraintLayout constraintLayout;
+        public ViewGroup testView;
 
         public ViewHolder(View v) {
             super(v);
@@ -59,6 +70,8 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
             percent7D = v.findViewById(R.id.per7day);
             imageView   = v.findViewById(R.id.imageView);
             cardViewTicker = v.findViewById(R.id.cardViewTicker);
+            constraintLayout = v.findViewById(R.id.constraintLayout);
+            testView = v.findViewById(R.id.my_recycler_view);
         }
     }
 
@@ -75,8 +88,8 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(TickerAdapter.ViewHolder holder, int position) {
-        YoYo.with(Techniques.FadeIn).playOn(holder.cardViewTicker);
+    public void onBindViewHolder(final TickerAdapter.ViewHolder holder, final int position) {
+        //YoYo.with(Techniques.FadeIn).playOn(holder.cardViewTicker);
         HashMap<String,String> map = values.get(position);
         holder.cryptoID.setText(map.get(TickerTab.KEY_SYMBOL));
         holder.price.setText(map.get(TickerTab.KEY_PRICE_INR));
@@ -111,7 +124,28 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.ViewHolder
         }
         //holder.imageView.setImageResource(Integer.parseInt(map.get("icon")));
         //holder.imageView.setImageResource(R.drawable.);
-        //Log.e(TAG, "Percent " + String.valueOf(map.get(TickerTab.KEY_PERCENT_CHANGE_1H)));
+
+        //The portion below adds the card expand functionality
+        final boolean isExpanded = position==mExpandedPosition;
+        holder.constraintLayout.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.itemView.setActivated(isExpanded);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1:position;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(passedRView);
+                }
+
+                //This removes the blink animation
+                ((SimpleItemAnimator) passedRView.getItemAnimator()).setSupportsChangeAnimations(false);
+
+                //notifyDataSetChanged();
+                notifyItemChanged(position);
+
+                notifyItemRangeChanged(0, values.size());
+            }
+        });
     }
 
     @Override

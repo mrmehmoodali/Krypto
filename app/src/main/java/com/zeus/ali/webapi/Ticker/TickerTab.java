@@ -245,7 +245,7 @@ public class TickerTab extends Fragment {
                 // use a linear layout manager
                 layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
-                mAdapter = new TickerAdapter(cryptoList);
+                mAdapter = new TickerAdapter(cryptoList, recyclerView);
 
                 //recyclerView.addItemDecoration
                 //        (new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
